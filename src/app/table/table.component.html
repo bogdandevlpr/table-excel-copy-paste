@@ -1,0 +1,70 @@
+<button (click)="onAddRow()">add row</button>
+<button (click)="onClear()">clear</button>
+<button (click)="onReset()">reset view</button>
+<table>
+  <th>No#</th>
+  <th>Column 1</th>
+  <th>Column 2</th>
+  <th>Column 3</th>
+  <th>Column 4</th>
+  <th>Column 5</th>
+  <th>Column 6</th>
+  <th>Actions</th>
+  <tr *ngFor="let row of table; let rowIndex = index">
+    <td style="text-align: center">{{ rowIndex + 1 }}</td>
+    <td *ngFor="let cell of row; let colIndex = index">
+      <input
+        *ngIf="cell.type === 'text'"
+        type="text"
+        placeholder="Enter value..."
+        [(ngModel)]="cell.value"
+        (paste)="onPaste($event, rowIndex, colIndex)"
+      />
+      <div *ngIf="cell.type === 'date'" class="datepicker-input-container">
+        <input
+          class="datepicker-input"
+          [matDatepicker]="picker"
+          placeholder="Select date..."
+          (paste)="onPaste($event, rowIndex, colIndex)"
+          [(ngModel)]="cell.value"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker"
+          class="datepicker-toggle"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </div>
+
+      <input
+        type="text"
+        *ngIf="cell.type === 'select'"
+        placeholder="Select value..."
+        (paste)="onPaste($event, rowIndex, colIndex)"
+        [(ngModel)]="cell.value"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let option of cell.options"
+          [value]="option"
+          [value]="option"
+        >
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+    </td>
+    <td style="text-align: center">
+      <span style="position: relative; top: 3px; cursor: pointer;">
+        <mat-icon (click)="onRemoveRow(rowIndex)">delete</mat-icon>
+      </span>
+    </td>
+  </tr>
+  <tr *ngIf="!table.length">
+    No records found
+  </tr>
+</table>
+
+<pre *ngIf="table.length">
+  {{ table | json }}
+</pre>
