@@ -1,6 +1,7 @@
 {
   "name": "example-app",
   "version": "0.0.0",
+  "homepage": "https://bogdandevlpr.github.io/table-excel-copy-paste",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
