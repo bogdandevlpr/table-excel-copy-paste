@@ -1,7 +1,6 @@
 {
   "name": "table-excel-copy-paste",
   "version": "0.0.0",
-  "homepage": "https://bogdandevlpr.github.io/table-excel-copy-paste/index.html",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
